@@ -2,6 +2,7 @@ import { UseAuth } from '../Auth'
 import { useNavigate } from 'react-router-dom';
 import React, { useId, useState,useContext } from 'react'
 import axios from 'axios';
+import bcrypt from 'bcryptjs';
 
 const SignIn = ({ changeAuthMode }) => {
     const [userId, setUserId] = useState("");
@@ -10,9 +11,31 @@ const SignIn = ({ changeAuthMode }) => {
     const navigate = useNavigate();
     const auth = UseAuth();
 
-    const handleSignIn = (e) => {
-        navigate("/home");
+    const handleSignIn = async(e) => {
         e.preventDefault();
+        const userData = JSON.parse(localStorage.getItem('userData'));
+
+        if (userData === null) {
+            setStatus("Wrong credentials");
+            setUserId("");
+            setPassword("");
+            return;
+        }
+        const HashedPassword = await bcrypt.hash(password,10)
+        console.log(HashedPassword)
+
+        // Compare the hashed password with the input password
+       /* bcrypt.compare(password, userData.userPassword)
+            .then(isValidPassword => {
+                if (isValidPassword) {
+                    navigate("/home");
+                } else {
+                    setStatus("Wrong credentials");
+                    setUserId("");
+                    setPassword("");
+                }
+            })
+            .catch(err => console.log(err));*/
         // axios
         // .get("http://localhost:5156/api/User/validateUser?userId="+userId+"&userPassword="+password)
         // .then(

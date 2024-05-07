@@ -2,6 +2,7 @@ import React, {useState,useEffect} from 'react';
 import { UseAuth } from '../Auth';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import bcrypt from 'bcryptjs';
 
 const SignUp = ({ changeAuthMode }) => {
     const [userName, setUserName] = useState("");
@@ -35,14 +36,27 @@ const SignUp = ({ changeAuthMode }) => {
         // .catch(err=>console.log(err))
     },[userId])
 
-    const handleSignUp = (e)=>{
+    const handleSignUp = async(e)=>{
         e.preventDefault();
+        const hashedPassword = await bcrypt.hash(password,10)
+        console.log(hashedPassword)
+        const userData = {
+            userId: userId,
+            userName: userName,
+            userEmail: email,
+            userPassword: hashedPassword,
+            userRole: "user",
+            joinDate: new Date().toLocaleDateString()
+        };
+        localStorage.setItem('userData', JSON.stringify(userData));
+        
+
         // axios
         // .post("http://localhost:5156/api/User/adduser",{
         //     "userId": userId,
         //     "userName": userName,
         //     "userEmail": email,
-        //     "userPassword": password,
+        //     "userPassword": hashedPassword,
         //     "userRole": "user",
         //     "joinDate": new Date().toLocaleDateString()
         // });
