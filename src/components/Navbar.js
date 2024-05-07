@@ -13,13 +13,16 @@ const Navbar = (prop) => {
                 <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <a className="nav-link active " aria-current="page" onClick={()=>prop.setPageVal(0)}>Home</a>
+                            <a className="nav-link active " aria-current="page" onClick={()=>prop.setPageVal(0)}>DashBoard</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link active" aria-current="page" onClick={()=>prop.setPageVal(1)}>Profile</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link active" aria-current="page" onClick={()=>prop.setPageVal(2)}>Settings</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link active" aria-current="page" onClick={()=>prop.setPageVal(3)}>About</a>
                         </li>
                     </ul>
                     <form className="d-flex">
